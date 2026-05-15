@@ -3,73 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的日常工具 7.0</title>
+<meta name="theme-color" content="#667eea">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="3.0工具">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiMy4wIOaXpeacrOW3pSIsInNob3J0X25hbWUiOiIzLjAiLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmNWY1ZjciLCJ0aGVtZV9jb2xvciI6IiM2NjdlZWEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sLiVlbmNvZGVkJTNDc3ZnJTIwd2lkdGglM0QlMjI1MTIlMjIlMjBoZWlnaHQlM0QlMjI1MTIlMjIlMjB2aWV3Qm94JTNEJTIyMCUyMDAlMjA1MTIlMjA1MTIlMjIlMjB4bWxucyUzRCUyMmh0dHAlM0ElMkYlMkZ3d3cudzMub3JnJTJGMjAwMCUyRnN2ZyUyMiUzRSUzQ3JlY3QlMjB3aWR0aCUzRCUyMjUxMiUyMiUyMGhlaWdodCUzRCUyMjUxMiUyMiUyMGZpbGwlM0QlMjIlMjM2NjdlZWElMjIlMkYlM0UlM0MlMkZzdmclM0UiLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+<title>3.0 日常工具</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#f5f5f7; font-family:'Noto Serif SC',serif; padding-bottom:80px; }
-.card { background:white; margin:20px 16px; border-radius:16px; padding:20px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
-.btn { width:100%; padding:14px; background:#222; color:white; border:none; border-radius:12px; font-size:16px; margin:10px 0; }
-.greeting-card { border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.15); margin:20px 16px; }
-</style>
-</head>
-<body>
-
-<h1 style="text-align:center;padding:20px 0;background:#222;color:white;margin:0;">我的日常工具 7.0</h1>
-
-<div class="card">
-  <h3>🎊 节日贺卡</h3>
-  <p style="margin:10px 0 15px;color:#666;">选择节日后点击生成</p>
-  
-  <select id="festSelect" style="width:100%;padding:12px;border-radius:8px;margin-bottom:12px;">
-    <option value="新年快乐">新年快乐</option>
-    <option value="生日快乐">生日快乐</option>
-    <option value="春节吉祥">春节吉祥</option>
-    <option value="中秋快乐">中秋快乐</option>
-    <option value="感谢有你">感谢有你</option>
-  </select>
-
-  <input type="text" id="toName" placeholder="送给谁？（例：妈妈）" style="width:100%;padding:12px;margin-bottom:12px;border-radius:8px;border:1px solid #ddd;">
-  
-  <button onclick="generateCard()" class="btn">生成贺卡并下载</button>
-</div>
-
-<!-- 贺卡预览区域 -->
-<div id="cardPreview" class="greeting-card" style="display:none;background:white;">
-  <div style="background:linear-gradient(135deg,#c0392b,#8b0000);color:white;padding:40px 20px;text-align:center;">
-    <div id="cardEmoji" style="font-size:40px;margin-bottom:10px;">🎊</div>
-    <div id="cardTitle" style="font-size:28px;font-weight:700;letter-spacing:4px;">新年快乐</div>
-  </div>
-  <div style="padding:25px;background:#fff9f0;min-height:180px;">
-    <div style="margin-bottom:20px;">致：<span id="cardTo" style="font-weight:700;color:#c0392b;"></span></div>
-    <div id="cardMsg" style="line-height:2.0;color:#333;min-height:100px;">祝福语将显示在这里...</div>
-    <div style="text-align:right;margin-top:20px;color:#c0392b;">—— <span id="cardFrom">feng</span></div>
-  </div>
-</div>
-
-<script>
-function generateCard() {
-  const to = document.getElementById('toName').value.trim() || "亲爱的朋友";
-  const fest = document.getElementById('festSelect').value;
-  
-  document.getElementById('cardTo').textContent = to;
-  document.getElementById('cardTitle').textContent = fest;
-  document.getElementById('cardMsg').innerHTML = `值此${fest}之际，祝你身体健康、万事如意、开心快乐每一天！<br><br>愿所有的美好，都如约而至。`;
-  document.getElementById('cardPreview').style.display = 'block';
-
-  // 自动下载
-  setTimeout(() => {
-    html2canvas(document.getElementById('cardPreview'), {scale: 3}).then(canvas => {
-      const link = document.createElement('a');
-      link.download = `${fest}_贺卡.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }, 800);
+:root {
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --text: #222222;
+  --text2: #888888;
+  --border: #e8e8ee;
+  --input-bg: #f8f8fa;
+  --tab-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.06);
+  --accent: #667eea;
 }
-</script>
+[data-theme="dark"] {
+  --bg: #0f0f13;
+  --card: #1c1c24;
+  --text: #e8e8f0;
+  --text2: #6a6a8a;
+  --border: #2a2a3a;
+  --input-bg: #25252f;
+  --tab-bg: #1c1c24;
+  --shadow: rgba(0,0,0,0.3);
+  --accent: #7c8fff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); min-height:100vh; font-family:'Noto Serif SC',serif; padding-bottom:80px; transition:background 0.3s,color 0.3s; color:var(--text); }
 
-</body>
-</html>
+/* 顶部栏 */
+.top-bar { position:sticky; top:0; z-index:50; background:var(--card); border-bottom:1px solid var(--border); padding:10px 16px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 8px var(--shadow); }
+.top-title { font-family:'ZCOOL XiaoWei',serif; font-size:18px; letter-spacing:3px; color:var(--accent); }
+.top-actions { display:flex; gap:10px; align-items:center; }
+.theme-btn { background:none; border:none; font-size:20px; cursor:pointer; padding:4px; border-radius:8px; transition:background 0.2s; }
+.theme-btn:hover { background:var(--border); }
+.install-btn { background:var(--accent); color:#fff; border:none; font-family:'Noto Serif SC',serif; font-size:11px; padding:5px 10px; border-radius:20px; cursor:pointer; display:none; }
+
+/* 底部导航 */
+.tab-bar { position:fixed; bottom:0; left:0; right:0; background:var(--tab-bg); border-top:1px solid var(--border); display:flex; z-index:100; box-shadow:0 -4px 20px var(--shadow); }
+.tab-item { flex:1; padding:8px 4px 6px; display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer; border:none; background:none; transition:all 0.2s; }
+.tab-icon { font-size:20px; }
+.tab-label { font-size:9px; color:var(--text2); letter-spacing:0.5px; }
+.tab-item.active .tab-label { color:var(--accent); font-weight:700; }
+.tab-item.active .tab-icon { transform:scale(1.1); }
+
+/* 页面 */
+.page { display:none; padding:16px; max-width:680px; margin:0 auto; }
+.page.active { display:block; }
+
+.section-title { font-size:11px; color:var(--text2); letter-spacing:2px; margin-bottom:10px; }
+
+/* 卡片 */
+.card { background:var(--card); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:0 2px 16px var(--shadow); border:1px solid var(--border); }
+
+label { display:block; font-size:11px; letter-spacing:1px; margin-bottom:6px; color:var(--text2); }
+input[type="text"], textarea, select { width:100%; background:var(--input-bg); border:1.5px solid var(--border); color:var(--text); font-family:'Noto Serif SC',serif; font-size:13px; padding:9px 12px; border-radius:8px; outline:none; transition:border-color 0.2s; }
+input:focus, textarea:focus, select:focus { border-color:var(--accent); }
+textarea { resize:vertical; min-height:80px; line-height:1.8; }
+select option { background:var(--card); color:var(--text); }
+
+.btn { width:100%; padding:12px; border:none; font-family:'Noto Serif SC',serif; font-size:13px; cursor:pointer; border-radius:10px; transition:all 0.2s; letter-spacing:1px; font-weight:700; }
+.btn-accent { background:var(--accent); color:#fff; }
+.btn-accent:hover { opacity:0.9; transform:translateY(-1px); }
+.btn-accent:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+.btn-outline { background:transparent; color:var(--text2); border:1.5px solid var(--border); font-weight:400; }
+.btn-sm { padding:8px 14px; width:auto; font-size:12px; border-radius:8px; }
+
+/* ===== 页面1：早晨 ===== */
+.blessing-card { border-radius:20px; padding:28px 20px; text-align:center; color:#fff; margin-bottom:14px; position:relative; overflow:hidden; min-heigh
