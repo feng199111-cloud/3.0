@@ -6,7 +6,9 @@
 <title>3.0 日常工具</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
+/* ========== 基础样式 ========== */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#f5f5f7; min-height:100vh; font-family:'Noto Serif SC',serif; padding-bottom:80px; transition:background 0.5s; }
 .tab-bar { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; display:flex; z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,0.06); }
@@ -28,28 +30,26 @@ textarea { resize:vertical; min-height:80px; line-height:1.8; }
 .btn { width:100%; padding:12px; border:none; font-family:'Noto Serif SC',serif; font-size:14px; cursor:pointer; border-radius:10px; transition:all 0.2s; letter-spacing:1px; font-weight:700; }
 .btn-dark { background:#222; color:#fff; }
 .btn-dark:hover { background:#333; transform:translateY(-1px); }
+.btn-dark:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
 .btn-outline { background:#f5f5f7; color:#555; border:1.5px solid #e8e8ee; font-weight:400; }
-</style>
-</head>
-<body>
-<div class="page active" id="page-morning">
-  <div class="page-header">
-    <h2>🌅 早晨祝福</h2>
-    <p>每天给自己一份力量</p>
-  </div>
-  <div class="card">
-    <label>今天的心情</label>
-    <input type="text" placeholder="😊 💪 🌈 😌 🔥" style="margin-bottom:14px">
-    <label>今日目标（选填）</label>
-    <input type="text" placeholder="例：完成报告、跑步30分钟…" maxlength="40" style="margin-bottom:14px">
-    <button class="btn btn-dark">✨ 生成今日祝福</button>
-  </div>
-</div>
-<div class="tab-bar">
-  <button class="tab-item active">
-    <div class="tab-icon">🌅</div>
-    <div class="tab-label">早晨祝福</div>
-  </button>
-</div>
-</body>
-</html>
+
+/* 早晨祝福 */
+.blessing-card { background:linear-gradient(135deg,#667eea,#764ba2); border-radius:20px; padding:32px 24px; text-align:center; color:#fff; margin-bottom:16px; position:relative; overflow:hidden; box-shadow:0 8px 32px rgba(102,126,234,0.3); min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:background 0.8s ease; }
+.blessing-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12), transparent 60%); }
+.blessing-date { font-size:11px; letter-spacing:2px; opacity:0.7; position:relative; }
+.blessing-text { font-size:clamp(15px,3.5vw,20px); line-height:1.9; letter-spacing:1px; font-weight:700; position:relative; white-space:pre-line; }
+.blessing-emoji { font-size:36px; position:relative; animation:float 3s ease-in-out infinite; }
+.mood-row { display:flex; gap:8px; margin-bottom:14px; }
+.mood-btn { flex:1; padding:10px 4px; background:#f8f8fa; border:1.5px solid #e8e8ee; border-radius:10px; font-size:18px; cursor:pointer; text-align:center; transition:all 0.15s; }
+.mood-btn.active { border-color:#667eea; background:#f0f0ff; transform:scale(1.08); }
+
+/* 贺卡 */
+.mode-toggle { display:flex; gap:8px; margin-bottom:14px; }
+.mode-btn { flex:1; padding:9px; border-radius:8px; border:1.5px solid #e8e8ee; background:#f0f0f5; color:#666; font-family:'Noto Serif SC',serif; font-size:12px; cursor:pointer; transition:all 0.2s; }
+.mode-btn.active { background:#222; color:#fff; border-color:#222; }
+.festival-scroll { display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:14px; scrollbar-width:none; }
+.festival-scroll::-webkit-scrollbar { display:none; }
+.fest-chip { flex-shrink:0; padding:7px 14px; border-radius:20px; border:1.5px solid #e8e8ee; background:#f8f8fa; color:#555; font-family:'Noto Serif SC',serif; font-size:12px; cursor:pointer; white-space:nowrap; transition:all 0.15s; }
+.fest-chip.active { background:#222; color:#fff; border-color:#222; }
+.greeting-card-preview { border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.1); margin-bottom:14px; min-height:240px; display:flex; flex-direction:column; position:relative; }
+.card-banner-p { padding:20px 16px 16px; text-align:center; positi
