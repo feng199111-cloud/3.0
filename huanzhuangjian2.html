@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>换装间</title>
+<style>
+:root{color-scheme:light dark;--bg:#eef1ee;--surface:#fbfcfa;--ink:#1f2a33;--muted:#5d6b73;--line:#cfd8d3;--accent:#2f5d57;--accent-ink:#fff;--gold:#8f6d22;--danger:#a4362b;--chip:#e1e8e4}
+@media (prefers-color-scheme:dark){:root{--bg:#141a1d;--surface:#1c2428;--ink:#e6ece9;--muted:#9aa9a8;--line:#2f3b3f;--accent:#6fb3a6;--accent-ink:#0f1a18;--gold:#d2ad5c;--danger:#e0766a;--chip:#27333a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:560px;margin:0 auto;padding:20px 16px 72px}
+h1{font:700 34px/1.2 "Songti SC","Noto Serif SC","STSong",serif;margin:8px 0 4px;letter-spacing:.12em}
+.sub{color:var(--muted);margin:0 0 22px;font-size:15px}
+h2{font:600 17px/1.4 "Songti SC","Noto Serif SC",serif;margin:0 0 10px}
+section{margin-bottom:28px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:22px}
+details.inner{margin:14px 0 0}
+summary{cursor:pointer;font-weight:600}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 4px}
+input[type=text],input[type=password],input[type=number],textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{resize:vertical;min-height:64px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drop{display:block;border:2px dashed var(--line);border-radius:14px;background:var(--surface);text-align:center;overflow:hidden;cursor:pointer;position:relative;margin-top:10px}
+.drop .empty{padding:40px 16px;color:var(--muted)}
+.drop .empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:2px}
+.drop img{display:block;width:100%;max-height:340px;object-fit:contain;background:#0001}
+.drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;font-size:15px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip.todo{border-style:dashed}
+.group{margin-bottom:12px}
+.group h3{font-size:14px;color:var(--gold);margin:0 0 6px;font-weight:600}
+button.main{width:100%;padding:15px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:700 17px inherit;font-family:inherit;cursor:pointer}
+button.main:disabled{opacity:.5;cursor:not-allowed}
+button.ghost{padding:10px 14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font:inherit;cursor:pointer}
+button.ghost:disabled{opacity:.5}
+.actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.linkrow{display:flex;gap:8px;margin-top:10px}
+.linkrow input{flex:1}
+#status{margin-top:12px;min-height:24px;font-size:15px}
+#status.err{color:var(--danger)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--muted);border-top-color:transparent;border-radius:50%;vertical-align:-2px;margin-right:8px;animation:r .8s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+#stage{position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none;background:#0001;border-radius:12px;overflow:hidden;min-height:240px;cursor:grab}
+#stage img{display:block;max-width:100%;max-height:540px;margin:0 auto;pointer-events:none;-webkit-user-drag:none}
+#angleTag{position:absolute;left:10px;bottom:10px;background:#000a;color:#fff;font-size:13px;padding:2px 10px;border-radius:999px}
+#sets{display:flex;gap:8px;overflow-x:auto;margin-top:12px;padding-bottom:4px}
+#sets button{flex:0 0 auto;border:2px solid transparent;border-radius:8px;padding:0;background:none;cursor:pointer}
+#sets button[aria-current=true]{border-color:var(--accent)}
+#sets img{width:56px;height:74px;object-fit:cover;border-radius:6px;display:block}
+.origin{width:100%;border-radius:10px;display:block;margin-bottom:10px;max-height:200px;object-fit:contain;background:#0001}
+#lb{position:fixed;inset:0;background:#000;z-index:50;display:none;flex-direction:column}
+#lb.open{display:flex}
+#lbwrap{flex:1;overflow:hidden;position:relative;touch-action:none}
+#lbImg{position:absolute;left:50%;top:50%;max-width:100%;max-height:100%;touch-action:none;user-select:none;-webkit-user-drag:none}
+#lbbar{display:flex;gap:10px;justify-content:center;padding:12px;background:#111;flex-wrap:wrap}
+#lbbar button{padding:10px 16px;border:1px solid #555;background:#222;color:#fff;border-radius:10px;fo
+              <script>
+const $=id=>document.getElementById(id);
+const store=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+const ANGLES=[0,45,90,135,180,225,270,315];
+const ALABEL={0:"正面",45:"右前斜侧",90:"右侧",135:"右后斜侧",180:"背面",225:"左后斜侧",270:"左侧",315:"左前斜侧"};
+const APROMPT={
+0:"directly from the front",
+45:"in a three-quarter view from the person's front-right, with the camera at 45 degrees to the person's right",
+90:"in a side profile view from the person's right side, with the camera at 90 degrees to the person's right",
+135:"in a three-quarter back view from the person's back-right, with the camera at 135 degrees",
+180:"directly from behind as a back view; infer the back design of the outfit so it stays consistent with the front",
+225:"in a three-quarter back view from the person's back-left, with the camera at 225 degrees",
+270:"in a side profile view from the person's left side, with the camera at 90 degrees to the person's left",
+315:"in a three-quarter view from the person's front-left, with the camera at 45 degrees to the person's left"};
+const CHIPS=[[0,"正面"],[180,"背面"],[270,"左侧"],[90,"右侧"]];
+const PLATS=[
+["淘宝",q=>"https://s.taobao.com/search?q="+q],
+["京东",q=>"https://so.m.jd.com/ware/search.action?keyword="+q],
+["拼多多",q=>"https://mobile.yangkeduo.com/search_result.html?search_key="+q],
+["闲鱼",q=>"https://www.goofish.com/search?q="+q],
+["Amazon",q=>"https://www.amazon.com/s?k="+q],
+["SHEIN",q=>"https://www.shein.com/pdsearch/"+q+"/"],
+["速卖通",q=>"https://www.aliexpress.com/wholesale?SearchText="+q]];
+const FIDELITY=" Reproduce the garment from image 2 as faithfully as possible: the same color, fabric texture, pattern, print, logo placement, neckline, sleeve length, hem length, buttons, pockets and overall cut. Do not redesign, simplify or recolor it. Keep the person from image 1 exactly the same: identical face, hairstyle, skin tone, body shape, pose, camera angle, background and lighting. Do not use the face or body of any model appearing in image 2. The result must look like a real photograph.";
+const GTYPES={
+"整套":"Image 1 shows a real person. Image 2 shows a complete outfit. Replace ALL of the person's clothing, including the top, the pants or skirt, and the shoes, with the outfit in image 2. If image 2 is a dress, robe or one-piece garment, remove the original pants completely so the legs and shoes match that garment's real length and style.",
+"上衣":"Image 1 shows a real person. Image 2 shows a top. Replace ONLY the person's top with the top in image 2. Keep the original pants or skirt, shoes and accessories exactly unchanged.",
+"外套":"Image 1 shows a real person. Image 2 shows a jacket or coat. Put the jacket from image 2 on the person as an outer layer. Keep the person's original inner top, pants or skirt and shoes unchanged.",
+"裤子":"Image 1 shows a real person. Image 2 shows a pair of pants. Replace ONLY the person's pants or skirt with the pants in image 2. Keep the original top, jacket and shoes exactly unchanged.",
+"裙子":"Image 1 shows a real person. Image 2 shows a skirt. Replace ONLY the person's pants or skirt with the skirt in image 2. Keep the original top and shoes exactly unchanged.",
+"鞋":"Image 1 shows a real person. Image 2 shows a pair of shoes. Replace ONLY the person's shoes with the shoes in image 2. Keep all clothing exactly unchanged."};
+const OUTFITS=[
+{group:"现代",items:[
+["休闲街头","stylish casual streetwear: a relaxed hoodie or tee, jeans and clean sneakers"],
+["商务西装","a well-tailored modern business suit with a crisp shirt, tie and leather shoes"],
+["运动风","athletic sportswear: a zip-up track jacket, joggers and running shoes"],
+["晚礼服","an elegant formal evening outfit that suits the person, with matching shoes"],
+["夏日度假","a light summer holiday outfit in breathable linen with sandals"]]},
+{group:"古代",items:[
+["汉服","traditional Hanfu with a cross-collar robe and flowing wide sleeves, with matching embroidered shoes"],
+["唐代服饰","authentic Tang dynasty clothing: a round-collar belted robe for men, or a high-waist ruqun skirt with a shawl for women, whichever fits the person, with matching shoes"],
+["宋制","Song dynasty clothing: a long beizi vest over a straight-collar gown in restrained elegant colors, with matching shoes"],
+["明制","Ming dynasty clothing with rich embroidery: an aoqun for women or a round-collar official robe for men, with matching shoes"],
+["将军铠甲","ancient Chinese general's armor with shoulder guards, a flowing cape and boots"],
+["宫廷华服","opulent imperial court costume in gold-embroidered silk, dragon robe for men or phoenix crown and ceremonial robe for women, with matching shoes"]]},
+{group:"中式",items:[
+["新唐装","a modern Tang suit jacket with a mandarin collar and knotted buttons in rich brocade, with trousers and shoes"],
+["旗袍/长衫","1930s Republic-era style: a qipao for women or a changshan long gown for men, with matching shoes"],
+["中山装","a classic Zhongshan suit with matching trousers and leather shoes"],
+["新中式","a
